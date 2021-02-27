@@ -1,0 +1,19 @@
+.Person{
+    width: 60%;
+    margin: 16px auto;
+    border: 1px solit black;
+    box-shadow: 0 2px 3px black;
+    padding: 16px;
+    text-align:center;
+
+}
+
+.Person:hover{
+    background-color: aquamarine;
+}
+
+@media (min-width: 500px){
+    .Person{
+        width: 450px;
+    }
+}

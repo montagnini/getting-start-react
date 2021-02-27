@@ -1,0 +1,17 @@
+.App {
+    text-align: center;
+    margin-top: 100px;
+    background-color: #add8e6;
+}
+
+.InputStyle {
+    background-color: #add8e6;
+}
+
+.red {
+    color: red;
+}
+
+.bold {
+    font-weight: bold;
+}
