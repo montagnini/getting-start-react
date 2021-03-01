@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import './App.css';
 import PersonsList from '../components/PersonsList/PersonsList.js';
-import Cockpit from '../components/Cockpit/Cockpit';
+import Cockpit from '../components/Cockpit/Cockpit.js';
+import AuthContext from '../context/auth-context.js';
 
 
 const app = props => {
@@ -13,7 +14,8 @@ const app = props => {
       { id: 2, name: "Nayla", age: 33 }
     ],
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    authenticaded: false
   });
 
   const onChangeHandler = (event, id) => {
@@ -70,24 +72,37 @@ const app = props => {
     persons = <PersonsList
       personsList={state.persons}
       onChange={onChangeHandler}
-      onClick={deletePersonHandler}>
+      onClick={deletePersonHandler}
+      isAuth={state.authenticaded}>
     </PersonsList>;
   }
 
+  const loginHandler = () => {
+    setState((prevState, props) => {
+      return {
+        ...prevState,
+        authenticaded: true
+      };
+    });
+  }
 
   return (
     <div className="App">
       <button onClick={() => setState({ ...state, showCockpit: !state.showCockpit })}> Show cockpit</button>
-      {state.showCockpit ? (
-
-        <Cockpit
-          title={props.appTitle}
-          showPersons={state.showPersons}
-          personsLength={state.persons.length}
-          onClick={togglePersonHandler}>
-        </Cockpit>) : null
-      }
-      {persons}
+      <AuthContext.Provider value={{
+        authenticated: state.authenticaded,
+        login: loginHandler
+      }}>
+        {state.showCockpit ? (
+          <Cockpit
+            title={props.appTitle}
+            showPersons={state.showPersons}
+            personsLength={state.persons.length}
+            onClick={togglePersonHandler}>
+          </Cockpit>) : null
+        }
+        {persons}
+      </AuthContext.Provider>
     </div>
   );
 }

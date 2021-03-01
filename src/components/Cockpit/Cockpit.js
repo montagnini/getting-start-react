@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useContext } from 'react';
 import styled from 'styled-components';
 import PropsTypes from 'prop-types';
+
+import AuthContext from '../../context/auth-context.js';
 
 //Create a styled button component.
 const StyledButton = styled.button`
@@ -17,15 +19,7 @@ const StyledButton = styled.button`
 }`;
 
 const cockpit = props => {
-  const buttonRef = useRef(null);
-
-/**
- useEffect(() => {
-   //buttonRef.current.onClick();
-   return () => {
-   };
- }, []);
- */
+  const authContext = useContext(AuthContext);
 
   const classes = [];
   if (props.personsLength < 2) {
@@ -35,16 +29,17 @@ const cockpit = props => {
     classes.push('bold');
   }
   return (
-    <div>
+    <React.Fragment>
       <h1>{props.title}</h1>
       <p className={classes.join(' ')}>It is really working!!!</p>
       <StyledButton
-        ref={buttonRef}
         alt={props.showPersons ? 1 : 0}
         onClick={props.onClick} >
         Toggle Persons
-    </StyledButton>
-    </div>
+      </StyledButton>
+      <StyledButton onClick={authContext.login}>Log in
+      </StyledButton>
+    </React.Fragment>
   );
 }
 

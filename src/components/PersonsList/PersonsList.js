@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Person from './Person/Person'
-
+import Person from './Person/Person.js';
 
 const personList = props => props.personsList.map((person) => {
     return <Person
@@ -25,6 +24,6 @@ personList.propTypes = {
 
 //Using memo here to improve performance  to our application.
 export default React.memo(personList, (prevProps, nextProps)=> {
-    console.log (prevProps.personsList === nextProps.personsList)
-    return prevProps.personsList === nextProps.personsList;
+    return prevProps.personsList === nextProps.personsList &&
+    prevProps.isAuth === nextProps.isAuth;
 });
